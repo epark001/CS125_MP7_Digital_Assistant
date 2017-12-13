@@ -1,0 +1,68 @@
+*****repeat thread every seconds*******
+
+ScheduledExecutorService exec = Executors.newSingleThreadScheduledExecutor();
+exec.scheduleAtFixedRate(new Runnable() {
+  @Override
+  public void run() {
+    // do stuff
+  }
+}, 0, 5, TimeUnit.SECONDS);
+
+
+******thread in background********
+
+public static void main(String[] args) {
+
+     Runnable r = new Runnable() {
+         public void run() {
+             runYourBackgroundTaskHere();
+         }
+     };
+
+     new Thread(r).start();
+     //this line will execute immediately, not waiting for your task to complete
+}
+
+******call a thread @ time******
+
+//The task which you want to execute
+private static class MyTimeTask extends TimerTask
+{
+
+    public void run()
+    {
+        //write your code here
+    }
+}
+
+public static void main(String[] args) {
+
+    //the Date and time at which you want to execute
+    DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    Date date = dateFormatter .parse("2012-07-06 13:05:45");
+
+    //Now create the time and schedule it
+    Timer timer = new Timer();
+
+    //Use this if you want to execute it once
+    timer.schedule(new MyTimeTask(), date);
+
+    //Use this if you want to execute it repeatedly
+    //int period = 10000;//10secs
+    //timer.schedule(new MyTimeTask(), date, period );
+}
+
+**** several multiple threads******
+
+public static void main(String[] args) {
+
+     Runnable r = new Runnable() {
+         public void run() {
+             runYourBackgroundTaskHere();
+         }
+     };
+
+     ExecutorService executor = Executors.newCachedThreadPool();
+     executor.submit(r);
+     //this line will execute immediately, not waiting for your task to complete
+}
